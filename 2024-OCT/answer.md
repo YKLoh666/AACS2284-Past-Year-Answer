@@ -1,4 +1,4 @@
-# AACS2204 OCT 2024 Answers
+# AACS2284 OCT 2024 Answers
 
 [Link to the paper](https://eprints.tarc.edu.my/30256/1/QP-AACS2284.pdf)
 
