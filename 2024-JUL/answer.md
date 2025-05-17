@@ -83,12 +83,12 @@ c)
 
 ![job state transition](job_state_transition.png)
 
-Hold - Admitted -> Ready
-Ready - Dispatched -> Running
-Running - Interrupt -> Ready
-Running - Exit -> Finished
-Running - I/O Wait -> Waiting
-Waiting - I/O Complete -> Ready
+> - Hold - Admitted -> Ready
+> - Ready - Dispatched -> Running
+> - Running - Interrupt -> Ready
+> - Running - Exit -> Finished
+> - Running - I/O Wait -> Waiting
+> - Waiting - I/O Complete -> Ready
 
 ### Question 2
 
@@ -246,7 +246,9 @@ $`
 a)
 
 Previous Head Position: 65
+
 Current Head Position: 56
+
 Sorted: 23, 28, 50, 60, 71, 78, 85, 90
 
 i) SSTF
@@ -271,7 +273,7 @@ b)
 
 ![Linked-List](Linked-List.png)
 
-- The head pointer is used to point to the address of first free memory block, which is 10 in the example. Each block contains the address of the next free memory block. The memory block which starts from 10 points to the next free memory block which is 22. The free blocks are chained together to form the list.
+- The head pointer is used to point to the first free memory block, which is 10 in the example. Each block contains the address of the next free memory block. The memory block which starts from 10 points to the next free memory block which is 22. The free blocks are chained together to form the list.
 
 - The advantage of using linked list is it can easily track the number of usable memory blocks.
 
