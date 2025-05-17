@@ -94,7 +94,7 @@ c)
 
 a)
 
-i) ![Directed Graph](directed-graph.png)
+i) ![Directed Graph](Directed-Graph.png)
 
 ii) Yes it is deadlock. Process D is waiting for Process B and C to release R1. Process B is waiting for Process A to release R2. Process C is waiting for Process D to release R3. Process A is waiting for both Process B. C and D to release R1 and R3. The circular waiting D -> B -> A -> D and D -> C -> D is a deadlock.
 
