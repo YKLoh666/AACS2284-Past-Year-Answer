@@ -13,7 +13,8 @@
 
 a)
 
-- One factor depended by the scheduling algorithm design is the process burst time.
+- One factor depended by the scheduling algorithm design is the process burst time. Algorithms such as Shortest Job Next and Shortest Remaining Time First schedule the processes depends on the processes' burst time.
+- Scheduling algorithm design also dependent on the priority of the processes. Priority scheduling allow process with higher priority to process first so the process can have lower response time.
 
 b) Process Scheduler
 
@@ -253,11 +254,11 @@ iii) LOOK
 
 Total Movement: 3 + 25 + 11 + 43 + 9 + 34 + 44 + 46 + 31 + 47 = **293**
 
-b) Factors that contribute to the performance of a file system:
+b) Factor affect the performance of accessing a file
 
-- How the system files are organized in the disk. Method such as sequential takes longer time to access the files compared to direct access due to the need to read the files in order.
-- How the system files are stored in the disk. Method such as linked allocation takes longer time to access the files compared to contiguous allocation due to files are scattered in different locations in the disk.
-- How the system files are structured. Fixed length records can be faster to access compared to variable length records because the address of the record in known index can be calculated easily.
+- Seek Time: Time taken to move the read/write head to the correct track. (Arm Movement)
+- Search Time: Time taken to find the correct sector on the track. (Rotational Latency)
+- Transfer Time: Time taken to transfer data from the disk to memory.
 
 c) Contiguous allocation is the best method for this scenario. This is because the large video files are stored in a single location in the disk, hence it is faster to access the files. It also allows effective sequential access to the files for editing, as the files are stored in order.
 
