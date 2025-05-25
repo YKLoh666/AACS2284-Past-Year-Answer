@@ -650,8 +650,8 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Preseet policies to determine which process gets access to a device for how long.
   - Allocate devices
   - Deallocate devices
-    - Process Level: I/O commands executed and device temporarily released.
-    - Job Level: Device permanently released when job terminates.
+    - **Process Level**: I/O commands executed and device temporarily released.
+    - **Job Level**: Device permanently released when job terminates.
 
 | Aspect             | Variation                                |
 | ------------------ | ---------------------------------------- |
@@ -673,6 +673,231 @@ Effective scheduling policies aim to optimize system performance with the follow
 
 ---
 
+### I/O Modules
+
+- Manage communication between CPU and I/O devices.
+- Accept I/O requests from the CPU.
+- Transfer data between the CPU and I/O devices.
+- Send interrupts to the CPU when I/O operations are complete.
+
+---
+
+### I/O Techniques
+
+- Test flag in Channel Status Word (CSW)
+- **Programmed I/O**:
+  - **Polling**: CPU continuously checks the status of the I/O device.
+  - If too frequent, CPU time is wasted in checking the status.
+  - If too seldom, I/O operations may take longer to complete.
+- **Interrupt**:
+  - I/O device sends an interrupt signal to the CPU when it is ready for data transfer.
+  - Control transferred to **interrupt handler**.
+  - Interrupt handler processes the I/O request and returns control to the CPU.
+- **Direct Memory Access (DMA)**:
+  - Allows I/O devices to transfer data directly to/from memory without CPU intervention.
+  - CPU send information to DMA controller about accessing memory.
+
+---
+
+### Buffering
+
+- Temporary storage area for data being transferred between the CPU and I/O devices.
+- Synchronizes data transfer between devices with different speeds.
+- Double buffering: Two buffers used to allow one buffer to be filled while the other is being emptied. (Solve mutual exclusion problem)
+
+---
+
+### Submanagers of Device Manager
+
+- **I/O Traffic Controller**: Watch status of all devices and channels
+- **I/O Scheduler**: Determines which process gets access to which device and for how long.
+- **I/O Device Handler**: Handles data transfer and interrupts for each device.
+
+---
+
+### Seek Time Algorithms
+
+| Algorithm                       | Advantages          | Disadvantages                      |
+| ------------------------------- | ------------------- | ---------------------------------- |
+| First Come First Serve (FCFS)   | Simple, fair        | Low throughput, high seek time     |
+| Shortest Seek Time First (SSTF) | Reduces seek time   | Starvation for distant requests    |
+| SCAN, LOOK                      | No starvation, fair | More complex, need directional bit |
+
+---
+
 ## File Management
 
--
+- Efficiency depends on
+  - How files organised (e.g., sequential, direct, indexed sequential)
+  - How files stored (e.g., contiguous, linked, indexed)
+  - How records structured (e.g., fixed-length, variable-length)
+  - Access control (e.g., read, write, execute permissions)
+- Responsibilities
+  - Allocate and deallocate files.
+  - Track where each file stored
+  - Determine how files will be stored
+
+---
+
+### File Organization
+
+- Depends on
+  - Volatility of data (addition, deletion, modification)
+  - Activity of file (number of records processed in a given time)
+  - Size of file (number of records)
+  - Response time (time taken to access a record)
+- **Sequential Record Organization**:
+  - Records stored in a sequential order.
+  - Accessed sequentially, one after another.
+  - Can be optimized by sorting with key fields.
+  - Batch applications.
+- **Direct Record Organization**
+  - Use direct access files instead of sequential files.
+  - Flexibility to access records in any order. (Not from start to end)
+  - Identified by relative address, which is the hash of the key field.
+  - Logical address translated to physical address
+  - Fast access to records.
+  - But collisions can occur, where two records hash to the same address, leading to the need for collision resolution techniques.
+- **Indexed Sequential Record Organization**
+  - Combines sequential and direct access.
+  - Index file contains key fields and their corresponding addresses.
+  - Only the index file is stored in memory.
+  - Sequential access to the index file, and direct access to the data file.
+
+---
+
+### Physical Storage Allocation
+
+- Different from file organization.
+  - File organization is about how files are structured and accessed.
+  - Physical storage allocation is about how files are stored on disk.
+- **Contiguous Allocation**:
+  - Files stored in contiguous blocks on disk.
+  - Fast access to specific records, given the starting address and size of the record.
+  - Easily direct accessed.
+  - Hard to expand unless there is enough space available.
+  - Fragmentation can occur, leading to wasted space.
+- **Linked Allocation**:
+  - Files stored in non-contiguous blocks, linked together using pointers.
+  - Each block contains a pointer to the next block.
+  - Flexible, as files can grow dynamically.
+  - Slower access, as each block must be traversed to access a specific record.
+- **Indexed Allocation**:
+  - Index blocks store pointers to data blocks.
+  - Each file has its own index block.
+  - Supports direct access to records.
+  - Slower than contiguous allocation due to index lookup.
+  - Flexible, as files can grow dynamically.
+
+### Free Space Management
+
+- **Bit Vector**: A bitmap where each bit represents a block of memory. A bit is set to 1 if the block is free, and 0 if it is allocated.
+  - Easy to retrieve contiguous free blocks.
+  - Requires significant memory overhead for large files.
+- **Linked List**: A linked list of free blocks, where each block contains a pointer to the next free block.
+  - More efficient in terms of memory usage.
+  - Slower to retrieve contiguous free blocks, as the list must be traversed.
+- **Grouping**: Store addresses of neighboring free blocks in a single block.
+  - Reduces the overhead of maintaining a linked list.
+  - Faster retrieval of contiguous free blocks.
+- **Counting**: Store the length of a contiguous free block instead of individual addresses.
+  - Reduces overhead further.
+  - Faster retrieval of contiguous free blocks, as the length is known.
+
+---
+
+## System Management
+
+- Balances strength and weaknesses of various components.
+
+---
+
+### Roles
+
+- Memory Management
+  - Tradeoff between memory use and CPU overhead.
+- Processor Management
+  - Tradeoff between CPU utilization and response time, overhead, and throughput.
+- Device Management
+  - Tradeoff between device utilization and response time, overhead, and throughput.
+  - CPU manage blocking, buffering, and rescheduling of I/O operations.
+- File Management
+  - Tradeoff between file flexibility and CPU overhead.
+
+---
+
+### Measurement
+
+- **Throughput** - Number of jobs completed in a given time.
+- **Capacity** - Maximum number of jobs that can be processed in a given time.
+- **Response Time** - Time taken to respond to a request.
+- **Turnaround Time** - Time taken to complete a job from submission to completion.
+- **Resource Utilization** - Percentage of time a resource is busy.
+- **Availability** - Percentage of time a resource is available for use.
+- **Reliability** - Probability that a resource will perform its intended function without failure.
+  - Mean Time Between Failures (MTBF) - Average time between failures of a resource.
+  - Mean Time To Repair (MTTR) - Average time taken to repair a resource after a failure.
+  - Uptime = MTBF / (MTBF + MTTR) - Percentage of time a resource is operational.
+
+---
+
+### Feedback Loop
+
+- Used in paged virtual memory systems to manage the arrival rate of processes based on system load.
+- **Negative Feedback Loop**
+
+  - Slow down arrival rate of processes when system is overloaded.
+
+  ```
+  +---------------------+
+  | Monitor System Load |<--------------+
+  +---------------------+               |
+            |                           |
+            v                           |
+  +-----------------------+     No      |
+  | Is System Overloaded? |-------------|
+  +-----------------------+             |
+            | Yes                       |
+            v                           |
+  +-----------------------------+       |
+  | Slow Down Arrival Rate of   |-------+
+  | Processes                   |
+  +-----------------------------+
+
+  ```
+
+- **Positive Feedback Loop**
+
+  - Speed up arrival rate of processes when system is underloaded.
+
+  ```
+  +---------------------+
+  | Monitor System Load |<--------------+
+  +---------------------+               |
+            |                           |
+            v                           |
+  +------------------------+     No     |
+  | Is System Underloaded? |------------|
+  +------------------------+            |
+            | Yes                       |
+            v                           |
+  +-----------------------------+       |
+  | Speed Up Arrival Rate of    |-------+
+  | Processes                   |
+  +-----------------------------+
+
+  ```
+
+- Negative feedback loop is more common, as underutilization is less of a concern than overloading the system.
+
+---
+
+### Technique to Protect Hardware and Software
+
+- User Authentication and Authorization
+- Firewalls
+- Antivirus Software
+- File Permissions
+- Data Encryption
+- Backup and Recovery
+- Regular Software Updates
