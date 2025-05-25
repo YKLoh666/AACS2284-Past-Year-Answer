@@ -25,6 +25,32 @@
   - [Deadlock Detection](#deadlock-detection)
   - [Deadlock Recovery](#deadlock-recovery)
   - [Starvation](#starvation)
+- [Memory Management](#memory-management)
+  - [Memory Partitioning](#memory-partitioning)
+  - [New Memory Management Scheme](#new-memory-management-scheme)
+  - [Virtual Memory](#virtual-memory)
+- [Concurrent Processes](#concurrent-processes)
+  - [Process Synchronization](#process-synchronization)
+  - [Process Cooperation](#process-cooperation)
+    - [Producer-Consumer Problem](#producer-consumer-problem)
+    - [Reader-Writer Problem](#reader-writer-problem)
+  - [Application of Concurrent Programming](#application-of-concurrent-programming)
+- [I/O Devices Management](#io-devices-management)
+  - [Access Time](#access-time)
+  - [I/O Modules](#io-modules)
+  - [I/O Techniques](#io-techniques)
+  - [Buffering](#buffering)
+  - [Submanagers of Device Manager](#submanagers-of-device-manager)
+  - [Seek Time Algorithms](#seek-time-algorithms)
+- [File Management](#file-management)
+  - [File Organization](#file-organization)
+  - [Physical Storage Allocation](#physical-storage-allocation)
+  - [Free Space Management](#free-space-management)
+- [System Management](#system-management)
+  - [Roles](#roles)
+  - [Measurement](#measurement)
+  - [Feedback Loop](#feedback-loop)
+  - [Technique to Protect Hardware and Software](#technique-to-protect-hardware-and-software)
 
 ## System Software
 
@@ -33,7 +59,7 @@
 - **Operating Systems (OS)**: Manages **hardware resources** and controls the execution of **application software**.
 - **Utility Programs**: Analyzes, configures, optimizes, and maintains the **computer system**.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## Operating System (OS)
 
@@ -55,7 +81,7 @@ The **Operating System (OS)** is the intermediary between **computer hardware** 
   - **Long-term Storage**: Maintains **data** for processing and future use.
   - **Non-determinacy**: Handles unpredictable events, such as **I/O interrupts**.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### OS Managers/Subsystems
 
@@ -88,7 +114,7 @@ The **OS** includes specialized subsystems, referred to as **managers**, to hand
   - Monitors **resource sharing** over **networks**.
   - Controls access to **network resources**.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Types of Operating Systems
 
@@ -118,13 +144,13 @@ Different **Operating Systems** are designed for specific purposes. These types 
   - Built for specific purposes within **devices** (e.g., smartphones, appliances).
   - Not designed for general use or interchangeable across **systems**.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Bootstrap Program
 
 The **Bootstrap Program** is the initial program that runs when the **system** starts. It initializes the **system**, loads the **OS kernel**, and starts **system daemons**. The **kernel** operates in an **interrupt-driven** mode, responding to **hardware interrupts** and **software interrupts**.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Services Provided by the OS
 
@@ -141,7 +167,7 @@ The **OS** offers services divided into two categories:
   - **Resource management** via the **Processor Manager**, **Memory Manager**, **Device Manager**, **File Manager**, and **Network Manager**.
   - **System Calls**: Enable **user-space applications** to request services from the **OS** and interact with **hardware**.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### System Calls
 
@@ -154,7 +180,7 @@ The **OS** offers services divided into two categories:
 - **Communication**: Supports **inter-process communication** (e.g., pipe, mmap, shmget).
 - **Protection**: Manages **permissions** and **security** (e.g., chmod, chown, umask).
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Kernel and Interrupts
 
@@ -181,13 +207,13 @@ The **Kernel** is the core component of the **OS** that manages **system resourc
   - **Hardware Interrupt**: Triggered by **hardware** to execute an **Interrupt Service Routine (ISR)**.
   - **Interrupt Service Routine (ISR)**: A routine handling specific **interrupt** types.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Utility Programs
 
 **Utility Programs** are a type of **system software** that assists in analyzing, configuring, optimizing, and maintaining the **computer**. They require technical expertise to use effectively.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## Processor Manager
 
@@ -196,14 +222,14 @@ The **Processor Manager** is a critical component of the **Operating System (OS)
 - **Active Multiprogramming**: Each program is given a **preset time slice** of CPU time. When the time slice expires, the job is interrupted, and another new job begins execution.
 - **Passive Multiprogramming**: Each program is **serviced in turn**, one after another. An interrupt signal is generated when a program completes, allowing the next program to continue.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Key Terms
 
 - **Job**: A **program** submitted to the system for execution.
 - **Process**: An active **job** that has been loaded into **RAM** and is either running or waiting to run.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Submanagers of the Processor Manager
 
@@ -232,7 +258,7 @@ The **Process Scheduler**, also known as the **Short-Term Scheduler**, assigns t
   - Manages how **jobs** move during execution (e.g., from running to waiting).
   - Recognizes when a **job** has concluded and terminates it.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Process States
 
@@ -265,7 +291,7 @@ A **process** transitions through several states during its lifecycle:
                                        +---------+
 ```
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Middle-Level Scheduler
 
@@ -274,7 +300,7 @@ The **Middle-Level Scheduler** is employed in highly interactive environments to
 - **Function**: Temporarily swaps **active jobs** in and out of **memory** to allow other **jobs** to complete faster, often leveraging **virtual memory**.
 - **Thrashing**: A situation where excessive swapping of pages in and out of memory causes performance degradation or system halting.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Process Control Block (PCB)
 
@@ -287,7 +313,7 @@ The **Process Control Block (PCB)** is a data structure containing vital informa
   - **Accounting**: Tracks **CPU time**, **main storage occupancy**, and **system programs** utilized.
 - **Queue**: A linked list of **PCBs** indicating the order in which **jobs** or **processes** are serviced (not the job itself).
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Context Switching
 
@@ -298,7 +324,7 @@ The **Process Control Block (PCB)** is a data structure containing vital informa
   - The **PCB** of the preempting **job** is loaded into the **CPU registers**.
   - Once the preempting **job** completes or is interrupted, the previous **job** resumes by reloading its **PCB**.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Good Scheduling Policies
 
@@ -311,13 +337,13 @@ Effective scheduling policies aim to optimize system performance with the follow
 - **Maximize Efficiency**: Optimize the use of the **CPU** and other **resources**.
 - **Fairness**: Ensure all **jobs** receive equitable **CPU time** and resource access.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## Deadlock
 
 - **Deadlock**: A situation where two or more processes are unable to proceed because each is waiting for the other to release resources. This can occur in systems with limited resources and can lead to system halting. Resolving deadlocks through external intervention.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Cases of Deadlock
 
@@ -336,7 +362,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Network Deadlock
   - Nodes buffer are full and waiting for each other to release resources.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Deadlock Conditions
 
@@ -345,7 +371,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - **No Preemption**: Resources cannot be forcibly taken from a process holding them.
 - **Circular Wait**: A set of processes are waiting for each other in a circular chain.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Deadlock Prevention
 
@@ -355,7 +381,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - **No Preemption**: Allow preemption of resources from waiting processes.
 - **Circular Wait**: Impose a strict ordering on resource allocation to prevent circular wait conditions.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Deadlock Avoidance
 
@@ -367,13 +393,13 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Number of total resources must be constant.
   - Overhead of maintaining the resource allocation table.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Deadlock Detection
 
 - Reducing the Directed Resource Graph (DRG) to find cycles.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Deadlock Recovery
 
@@ -381,7 +407,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Preempt resources from one or more processes to break the deadlock.
 - Rollback processes to a safe state and restart them.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Starvation
 
@@ -389,11 +415,11 @@ Effective scheduling policies aim to optimize system performance with the follow
 - **Avoiding Starvation**: Aging techniques can be used to gradually increase the priority of waiting processes, ensuring that all processes eventually receive the resources they need.
 - **Aging**: Gradually increasing the priority of waiting processes to ensure they eventually receive the resources they need.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## Memory Management
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Memory Partitioning
 
@@ -428,7 +454,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 | Algorithm less complex                                       | Algorithm more complex                                          |
 | Memory list sorted by location                               | Memory list sorted by size                                      |
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### New Memory Management Scheme
 
@@ -512,7 +538,7 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Cons
     - More overhead, as multiple tables are used.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Virtual Memory
 
@@ -535,7 +561,7 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Overhead of handling paging interrupts.
   - Software complexity to prevent thrashing.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## Concurrent Processes
 
@@ -550,7 +576,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Challenges
   - Orchestrating multiple processes.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Process Synchronization
 
@@ -578,11 +604,11 @@ Effective scheduling policies aim to optimize system performance with the follow
 > - Wait(P) wait for a key, if key available, take it and enter critical region. If not, wait until key is available.
 > - Signal(V) return the key, increment the semaphore value, and let waiting processes know that a key is available.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Process Cooperation
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 #### Producer-Consumer Problem
 
@@ -609,7 +635,7 @@ Effective scheduling policies aim to optimize system performance with the follow
   4. Signal the Mutex Semaphore (V) to release the buffer.
   5. Signal the Producer Semaphore (V) to indicate that space is available in the buffer.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 #### Reader-Writer Problem
 
@@ -633,7 +659,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Issues:
   - Reader or Writer Starvation depending who is prioritized.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Application of Concurrent Programming
 
@@ -641,7 +667,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - **Explicit Parallelism**: Concurrent programming where the programmer explicitly defines the parallel tasks.
 - **Implicit Parallelism**: Concurrent programming where the compiler or runtime system automatically identifies parallel tasks.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## I/O Devices Management
 
@@ -662,7 +688,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 | Device Speed       | Latency, Seek Time, Transfer Rate, Delay |
 | I/O direction      | Read, Write, Read-Write                  |
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Access Time
 
@@ -671,7 +697,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Transfer Time: Time taken to transfer data from the disk to memory.
 - Total Access Time: Seek Time + Search Time + Transfer Time.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### I/O Modules
 
@@ -680,7 +706,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Transfer data between the CPU and I/O devices.
 - Send interrupts to the CPU when I/O operations are complete.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### I/O Techniques
 
@@ -697,7 +723,7 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Allows I/O devices to transfer data directly to/from memory without CPU intervention.
   - CPU send information to DMA controller about accessing memory.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Buffering
 
@@ -705,7 +731,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Synchronizes data transfer between devices with different speeds.
 - Double buffering: Two buffers used to allow one buffer to be filled while the other is being emptied. (Solve mutual exclusion problem)
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Submanagers of Device Manager
 
@@ -713,7 +739,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - **I/O Scheduler**: Determines which process gets access to which device and for how long.
 - **I/O Device Handler**: Handles data transfer and interrupts for each device.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Seek Time Algorithms
 
@@ -723,7 +749,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 | Shortest Seek Time First (SSTF) | Reduces seek time   | Starvation for distant requests    |
 | SCAN, LOOK                      | No starvation, fair | More complex, need directional bit |
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## File Management
 
@@ -737,7 +763,7 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Track where each file stored
   - Determine how files will be stored
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### File Organization
 
@@ -764,7 +790,7 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Only the index file is stored in memory.
   - Sequential access to the index file, and direct access to the data file.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Physical Storage Allocation
 
@@ -804,13 +830,13 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Reduces overhead further.
   - Faster retrieval of contiguous free blocks, as the length is known.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ## System Management
 
 - Balances strength and weaknesses of various components.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Roles
 
@@ -824,7 +850,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 - File Management
   - Tradeoff between file flexibility and CPU overhead.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Measurement
 
@@ -839,7 +865,7 @@ Effective scheduling policies aim to optimize system performance with the follow
   - Mean Time To Repair (MTTR) - Average time taken to repair a resource after a failure.
   - Uptime = MTBF / (MTBF + MTTR) - Percentage of time a resource is operational.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Feedback Loop
 
@@ -890,7 +916,7 @@ Effective scheduling policies aim to optimize system performance with the follow
 
 - Negative feedback loop is more common, as underutilization is less of a concern than overloading the system.
 
----
+--- _[Back to Table Of Content](#table-of-contents)_
 
 ### Technique to Protect Hardware and Software
 
@@ -901,3 +927,5 @@ Effective scheduling policies aim to optimize system performance with the follow
 - Data Encryption
 - Backup and Recovery
 - Regular Software Updates
+
+--- _[Back to Table Of Content](#table-of-contents)_
