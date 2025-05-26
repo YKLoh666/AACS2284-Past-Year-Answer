@@ -429,15 +429,16 @@ Effective scheduling policies aim to optimize system performance with the follow
   - If too small, large processes may not fit
   - If too large, **internal fragmentation** occurs (wastage)
   - Same program stored contiguously
-  - **Deallocation**: Set memory partition to free when process terminates.
+  - **Deallocation**: Set memory partition to free when the process terminates.
 - **Dynamic Partitioning**:
-  - Jobs given exactly the amount of memory they need
+  - Jobs are given exactly the amount of memory they need
   - Performance degrades over time due to **external fragmentation**
   - **Deallocation**
     - Maintain a free list of available memory blocks.
     - When a process terminates, merge adjacent free blocks to reduce fragmentation.
     - When merging more than 3 blocks, the list will have null entries.
     - Null entries are to be filled later with free blocks.
+- **Relocatable Dynamic Partitioning**
   - **Compaction/Defragmentation**:
     - Rearranging memory to eliminate fragmentation.
     - **Relocation**: Update currently used memory blocks to point to the new locations.
